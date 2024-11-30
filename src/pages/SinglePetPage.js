@@ -1,6 +1,8 @@
+import SinglePetItem from "../components/SinglePet/SinglePetItem"
+
 const SinglePetPage = () => {
   return (
-    <div>SinglePetPage</div>
+    <SinglePetItem />
   )
 }
 
