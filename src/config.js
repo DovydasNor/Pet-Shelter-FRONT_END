@@ -1,7 +1,1 @@
-const config = () => {
-  return (
-    <div>config</div>
-  )
-}
-
-export default config
+export const API_URL = 'http://localhost:3000'

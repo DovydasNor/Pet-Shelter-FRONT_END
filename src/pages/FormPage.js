@@ -1,6 +1,10 @@
+import FormItem from '../components/form/FormItem'
+
 const FormPage = () => {
   return (
-    <div>FormPage</div>
+    <>
+    <FormItem />
+    </>
   )
 }
 
