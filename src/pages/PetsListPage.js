@@ -1,6 +1,8 @@
+import PetsListItem from "../components/PetsList/PetsListItem"
+
 const PetsListPage = () => {
   return (
-    <div>PetsListPage</div>
+    <PetsListItem />
   )
 }
 
