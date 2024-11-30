@@ -3,12 +3,14 @@ import { API_URL } from '../config'
 export const createPet = async (dispatch, pet) => {
   dispatch({ type: 'LOADING' })
   try {
+    const petWithDate = { ...pet, date: new Date().toISOString() }
+
     const response = await fetch(`${API_URL}/api/pets`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(pet),
+      body: JSON.stringify(petWithDate),
     })
     const data = await response.json()
     dispatch({ type: 'ADD_PET', payload: data })
