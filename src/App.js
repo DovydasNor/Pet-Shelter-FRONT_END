@@ -6,6 +6,7 @@ import PetsListPage from './pages/PetsListPage'
 import SinglePetPage from './pages/SinglePetPage'
 import { FormProvider } from './components/form/formContext'
 import { PetsListProvider } from './components/PetsList/petsListContext'
+import { SinglePetProvider } from './components/SinglePet/singlePetContext'
 
 function App() {
   return (
@@ -13,9 +14,9 @@ function App() {
       <PageHeader />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/form" element={<FormProvider> <FormPage /> </FormProvider>} />
+        <Route path="/form" element={<FormProvider><FormPage /></FormProvider>} />
         <Route path="/pets" element={<PetsListProvider><PetsListPage /></PetsListProvider>} />
-        <Route path="/pets/:id" element={<SinglePetPage />} />
+        <Route path="/pets/:id" element={<SinglePetProvider><SinglePetPage /></SinglePetProvider>} />
       </Routes>
     </>
   )

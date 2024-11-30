@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { usePetsList } from './petsListContext'
 import { getAllPets } from '../../actions/petsListActions'
+import { Link } from 'react-router'
 
 const PetsListPage = () => {
   const { state, dispatch } = usePetsList()
@@ -38,15 +39,16 @@ const PetsListPage = () => {
           <option value="cat">Cat</option>
         </select>
       </div>
-
+      
       <div>
-          {filteredPets.map(pet => (
-            <div key={pet._id}>
+        {filteredPets.map(pet => (
+          <Link to={`/pets/${pet._id}`} key={pet._id}>
+            <div>
               <h2>{pet.name}</h2>
-              <p>{pet.bread}</p>
-              <p>{pet.description}</p>
+              <p>{pet.breed}</p>
             </div>
-          ))}
+          </Link>
+        ))}
       </div>
     </>
   )
