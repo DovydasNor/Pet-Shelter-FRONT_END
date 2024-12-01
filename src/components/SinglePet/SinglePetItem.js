@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useSinglePet } from './singlePetContext'
-import { getSinglePet } from '../../actions/singlePetActions'
+import { deletePet, getSinglePet } from '../../actions/singlePetActions'
 
 const SinglePetItem = () => {
   const { state, dispatch } = useSinglePet()
   const { id } = useParams()
+  const navigate = useNavigate()
+
+  const deleteButtonHandler = async () => {
+    await deletePet(dispatch, id)
+    navigate('/pets')
+  }
 
   useEffect(() => {
     getSinglePet(dispatch, id)
@@ -29,7 +35,7 @@ const SinglePetItem = () => {
       <p>Type: {state.pet.type}</p>
       <p>Breed: {state.pet.breed}</p>
       <p>Description: {state.pet.description}</p>
-      <Link to={`/pets/${id}/edit`}>Edit</Link>
+      <Link to={`/pets/${id}/edit`}>Edit</Link> <button onClick={deleteButtonHandler}>Delete</button>
     </div>
   )
 }
