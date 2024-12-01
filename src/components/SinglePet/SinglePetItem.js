@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useSinglePet } from './singlePetContext'
 import { getSinglePet } from '../../actions/singlePetActions'
 
@@ -29,6 +29,7 @@ const SinglePetItem = () => {
       <p>Type: {state.pet.type}</p>
       <p>Breed: {state.pet.breed}</p>
       <p>Description: {state.pet.description}</p>
+      <Link to={`/pets/${id}/edit`}>Edit</Link>
     </div>
   )
 }

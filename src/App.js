@@ -17,6 +17,7 @@ function App() {
         <Route path="/form" element={<FormProvider><FormPage /></FormProvider>} />
         <Route path="/pets" element={<PetsListProvider><PetsListPage /></PetsListProvider>} />
         <Route path="/pets/:id" element={<SinglePetProvider><SinglePetPage /></SinglePetProvider>} />
+        <Route path="/pets/:id/edit" element={<FormProvider><FormPage /></FormProvider>} />
       </Routes>
     </>
   )
