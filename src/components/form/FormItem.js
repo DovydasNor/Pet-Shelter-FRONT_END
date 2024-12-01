@@ -24,14 +24,14 @@ const FormItem = () => {
       console.log('Setting form fields with pet data:', state.pet)
       setField(dispatch, 'type', state.pet.type)
       setField(dispatch, 'name', state.pet.name)
-      setField(dispatch, 'bread', state.pet.breed)
+      setField(dispatch, 'breed', state.pet.breed)
       setField(dispatch, 'description', state.pet.description)
     }
   }, [state.pet, dispatch, id])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const pet = { type: state.type, name: state.name, bread: state.bread, description: state.description }
+    const pet = { type: state.type, name: state.name, breed: state.breed, description: state.description }
     console.log('Submitting form with pet data:', pet)
     if (id) {
       await updatePet(dispatch, { ...pet, id })
@@ -81,12 +81,12 @@ const FormItem = () => {
         />
       </div>
       <div className="form-control">
-        <label htmlFor="bread">Bread:</label>
+        <label htmlFor="breed">Breed:</label>
         <input
           type="text"
-          id="bread"
-          name="bread"
-          value={state.bread}
+          id="breed"
+          name="breed"
+          value={state.breed}
           onChange={handleChange}
         />
       </div>
@@ -101,7 +101,7 @@ const FormItem = () => {
           onChange={handleChange}
         ></textarea>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">{id ? 'Update' : 'Create'}</button>
     </form>
   )
 }
