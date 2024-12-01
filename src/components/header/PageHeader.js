@@ -1,16 +1,17 @@
+import { NavLink } from "react-router-dom";
+
 const PageHeader = () => {
   return (
     <>
       <nav>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/form">Form</a></li>
-          <li><a href="/pets">Pets</a></li>
+          <li><NavLink to='/'>Home</NavLink></li>
+          <li><NavLink to='/form'>Add pet</NavLink></li>
+          <li><NavLink to='/pets'>Pets list</NavLink></li>
         </ul>
       </nav>
     </>
-
-  )
+  );
 }
 
-export default PageHeader
+export default PageHeader;

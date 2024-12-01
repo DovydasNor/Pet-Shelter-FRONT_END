@@ -1,6 +1,6 @@
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <div>Welcome to our pets shelter</div>
   )
 }
 
