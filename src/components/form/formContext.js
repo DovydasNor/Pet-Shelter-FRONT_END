@@ -6,7 +6,7 @@ const FormContext = createContext()
 const initialState = {
   type: '',
   name: '',
-  bread: '',
+  breed: '',
   description: '',
   loading: false,
   error: null,
