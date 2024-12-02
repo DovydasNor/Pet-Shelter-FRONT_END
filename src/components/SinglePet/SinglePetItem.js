@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useSinglePet } from './singlePetContext'
-import { deletePet, getSinglePet } from '../../actions/singlePetActions'
+import { getSinglePet, deletePet } from '../../actions/singlePetActions'
+import { useParams, useNavigate, Link } from 'react-router-dom'
+import CommentingItem from '../commenting/commentingItem'
+import CommentingForm from '../commenting/commentingForm'
+import { CommentingProvider } from '../commenting/commentingContext'
 
-const SinglePetItem = () => {
+const SinglePetPage = () => {
   const { state, dispatch } = useSinglePet()
   const { id } = useParams()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    getSinglePet(dispatch, id)
+  }, [dispatch, id])
 
   const deleteButtonHandler = async () => {
     await deletePet(dispatch, id)
     navigate('/pets')
   }
-
-  useEffect(() => {
-    getSinglePet(dispatch, id)
-  }, [dispatch, id])
 
   if (state.loading) {
     return <div>Loading...</div>
@@ -36,8 +39,13 @@ const SinglePetItem = () => {
       <p>Breed: {state.pet.breed}</p>
       <p>Description: {state.pet.description}</p>
       <Link to={`/pets/${id}/edit`}>Edit</Link> <button onClick={deleteButtonHandler}>Delete</button>
+
+      <CommentingProvider>
+        <CommentingItem petId={id} />
+        <CommentingForm petId={id} />
+      </CommentingProvider>
     </div>
   )
 }
 
-export default SinglePetItem
+export default SinglePetPage
