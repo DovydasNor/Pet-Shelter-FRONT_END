@@ -30,3 +30,18 @@ export const createComment = async (dispatch, petId, comment) => {
     dispatch({ type: 'ERROR_COMMENTS', payload: error.message })
   }
 }
+
+export const deleteComment = async (dispatch, commentId) => {
+  dispatch({ type: 'LOADING_COMMENTS' })
+  try {
+    const response = await fetch(`${API_URL}/api/comments/${commentId}`, {
+      method: 'DELETE',
+    })
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    dispatch({ type: 'DELETE_COMMENT', payload: commentId })
+  } catch (error) {
+    dispatch({ type: 'ERROR_COMMENTS', payload: error.message })
+  }
+}

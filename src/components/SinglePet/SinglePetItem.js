@@ -37,28 +37,28 @@ const SinglePetItem = () => {
   return (
     <Container className="single-pet-container" maxWidth="sm">
       <Card className="single-pet-card">
-        <CardContent>
-          <Typography variant="h4" component="h1" gutterBottom>
-            {state.pet.name}
-          </Typography>
-          <Typography variant="body1" component="p">
-            Type: {state.pet.type}
-          </Typography>
-          <Typography variant="body1" component="p">
-            Breed: {state.pet.breed}
-          </Typography>
-          <Typography variant="body1" component="p">
-            Description: {state.pet.description}
-          </Typography>
-          <div className="pet-actions">
-            <Link to={`/pets/${id}/edit`}>
-              <Button variant="contained" color="primary">
-                Edit
+        <CardContent className="card-content">
+          <img src={state.pet.petPhoto} alt={state.pet.name} className="pet-photo" />
+          <div className="pet-details">
+            <Typography variant="h4" component="h1" gutterBottom>
+              {state.pet.name}
+            </Typography>
+            <Typography variant="body1" component="p" className="pet-info">
+              <strong>Breed:</strong> {state.pet.breed}
+            </Typography>
+            <Typography variant="body1" component="p" className="pet-info">
+              <strong>Description:</strong> {state.pet.description}
+            </Typography>
+            <div className="pet-actions">
+              <Link to={`/pets/${id}/edit`}>
+                <Button variant="contained" color="primary">
+                  Edit
+                </Button>
+              </Link>
+              <Button variant="contained" color="secondary" onClick={deleteButtonHandler}>
+                Delete
               </Button>
-            </Link>
-            <Button variant="contained" color="secondary" onClick={deleteButtonHandler}>
-              Delete
-            </Button>
+            </div>
           </div>
         </CardContent>
       </Card>

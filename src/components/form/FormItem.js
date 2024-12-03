@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from './formContext'
 import { createPet, updatePet, setField, resetForm } from '../../actions/formActions'
 import { getSinglePet } from '../../actions/singlePetActions'
@@ -26,6 +26,7 @@ const FormItem = () => {
       console.log('Setting form fields with pet data:', state.pet)
       setField(dispatch, 'type', state.pet.type)
       setField(dispatch, 'name', state.pet.name)
+      setField(dispatch, 'petPhoto', state.pet.petPhoto)
       setField(dispatch, 'breed', state.pet.breed)
       setField(dispatch, 'description', state.pet.description)
     }
@@ -33,11 +34,13 @@ const FormItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const formData = new FormData()
-    formData.append('type', state.type)
-    formData.append('name', state.name)
-    formData.append('breed', state.breed)
-    formData.append('description', state.description)
+    const formData = {
+      type: state.type,
+      name: state.name,
+      breed: state.breed,
+      petPhoto: state.petPhoto,
+      description: state.description,
+    }
 
     console.log('Submitting form with pet data:', formData)
     if (id) {
@@ -101,6 +104,17 @@ const FormItem = () => {
             label="Breed"
             variant="outlined"
             value={state.breed}
+            onChange={handleChange}
+            fullWidth
+          />
+        </div>
+        <div className="form-control">
+          <TextField
+            id="petPhoto"
+            name="petPhoto"
+            label="Pet photo URL"
+            variant="outlined"
+            value={state.petPhoto}
             onChange={handleChange}
             fullWidth
           />

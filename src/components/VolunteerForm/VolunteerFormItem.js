@@ -3,7 +3,7 @@ import { useVolunteerForm } from './VolunteerFormContext'
 import { createVolunteer, updateVolunteer, setField, resetForm } from '../../actions/volunteersFormActions'
 import { getSingleVolunteer } from '../../actions/singleVolunteerActions'
 import { useNavigate, useParams } from 'react-router-dom'
-import { TextField } from '@mui/material'
+import { TextField, Button } from '@mui/material'
 import './VolunteerFormItem.scss'
 
 const VolunteerFormItem = () => {
@@ -24,16 +24,23 @@ const VolunteerFormItem = () => {
       setField(dispatch, 'name', state.volunteer.name)
       setField(dispatch, 'email', state.volunteer.email)
       setField(dispatch, 'description', state.volunteer.description)
+      setField(dispatch, 'photo', state.volunteer.photo)
     }
   }, [state.volunteer, dispatch, id])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const volunteer = { name: state.name, email: state.email, description: state.description }
+    const formData = {
+      name: state.name,
+      email: state.email,
+      description: state.description,
+      photo: state.photo,
+    }
+
     if (id) {
-      await updateVolunteer(dispatch, { ...volunteer, id })
+      await updateVolunteer(dispatch, { ...formData, id })
     } else {
-      await createVolunteer(dispatch, volunteer)
+      await createVolunteer(dispatch, formData)
     }
     resetForm(dispatch)
     navigate(`/volunteers/${id}`)
@@ -90,7 +97,20 @@ const VolunteerFormItem = () => {
             fullWidth
           />
         </div>
-        <button type="submit">{id ? 'Update Volunteer' : 'Add Volunteer'}</button>
+        <div className="form-control">
+          <TextField
+            id="photo"
+            name="photo"
+            label="Photo URL"
+            variant="outlined"
+            value={state.photo}
+            onChange={handleChange}
+            fullWidth
+          />
+        </div>
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          {id ? 'Update Volunteer' : 'Add Volunteer'}
+        </Button>
       </form>
     </div>
   )
