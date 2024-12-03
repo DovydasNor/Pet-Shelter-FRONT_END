@@ -1,15 +1,14 @@
 import { API_URL } from '../config'
 
-export const createPet = async (dispatch, pet) => {
+export const createPet = async (dispatch, formData) => {
   dispatch({ type: 'LOADING' })
   try {
-    const petWithDate = { ...pet, date: new Date().toISOString() }
     const response = await fetch(`${API_URL}/api/pets`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(petWithDate),
+      body: JSON.stringify(formData),
     })
     const data = await response.json()
     dispatch({ type: 'ADD_PET', payload: data })
@@ -19,15 +18,15 @@ export const createPet = async (dispatch, pet) => {
   }
 }
 
-export const updatePet = async (dispatch, pet) => {
+export const updatePet = async (dispatch, formData) => {
   dispatch({ type: 'LOADING' })
   try {
-    const response = await fetch(`${API_URL}/api/pets/${pet.id}`, {
+    const response = await fetch(`${API_URL}/api/pets/${formData.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(pet),
+      body: JSON.stringify(formData),
     })
     const data = await response.json()
     dispatch({ type: 'UPDATE_PET', payload: data })

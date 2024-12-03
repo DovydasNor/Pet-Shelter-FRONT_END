@@ -30,6 +30,10 @@ const VolunteersListItem = () => {
     return <div>Loading...</div>
   }
 
+  if (!state.volunteers.length) {
+    return <h1>No volunteers found..</h1>
+  }
+
   if (state.error) {
     return <div>Error: {state.error}</div>
   }

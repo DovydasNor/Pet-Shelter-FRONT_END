@@ -37,6 +37,7 @@ const VolunteerItem = () => {
         <Typography variant="h4" component="h1">
           {state.volunteer.name}
         </Typography>
+        <img src={state.volunteer.photo} alt={state.volunteer.name} className="volunteer-photo" />
         <Typography variant="body1" component="p">
           Email: {state.volunteer.email}
         </Typography>

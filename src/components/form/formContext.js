@@ -7,6 +7,7 @@ const initialState = {
   type: '',
   name: '',
   breed: '',
+  petPhoto: '',
   description: '',
   loading: false,
   error: null,

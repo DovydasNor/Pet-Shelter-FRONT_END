@@ -1,6 +1,6 @@
 import { API_URL } from '../config'
 
-export const createVolunteer = async (dispatch, volunteer) => {
+export const createVolunteer = async (dispatch, formData) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await fetch(`${API_URL}/api/volunteers`, {
@@ -8,7 +8,7 @@ export const createVolunteer = async (dispatch, volunteer) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(volunteer),
+      body: JSON.stringify(formData),
     })
     const data = await response.json()
     dispatch({ type: 'ADD_VOLUNTEER', payload: data })
@@ -18,15 +18,15 @@ export const createVolunteer = async (dispatch, volunteer) => {
   }
 }
 
-export const updateVolunteer = async (dispatch, volunteer) => {
+export const updateVolunteer = async (dispatch, formData) => {
   dispatch({ type: 'LOADING' })
   try {
-    const response = await fetch(`${API_URL}/api/volunteers/${volunteer.id}`, {
+    const response = await fetch(`${API_URL}/api/volunteers/${formData.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(volunteer),
+      body: JSON.stringify(formData),
     })
     const data = await response.json()
     dispatch({ type: 'UPDATE_VOLUNTEER', payload: data })
