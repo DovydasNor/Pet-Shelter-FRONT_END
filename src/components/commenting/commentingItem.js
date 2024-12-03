@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useCommenting } from './commentingContext'
 import { getComments } from '../../actions/commentingActions'
+import { List, ListItem, ListItemText, Typography, CircularProgress } from '@mui/material'
+import './commentingItem.scss'
 
 const CommentingItem = ({ petId }) => {
   const { state, dispatch } = useCommenting()
@@ -10,20 +12,22 @@ const CommentingItem = ({ petId }) => {
   }, [dispatch, petId])
 
   return (
-    <>
-      <h2>Comments</h2>
+    <div className="commenting-item">
       {state.loading ? (
-        <div>Loading comments...</div>
+        <CircularProgress />
       ) : (
-        <ul>
+        <List>
           {state.comments.map((comment) => (
-            <li key={comment._id}>
-              {comment.comment} (Volunteer: {comment.volunteer?.name})
-            </li>
+            <ListItem key={comment._id} className="comment-item">
+              <ListItemText
+                primary={comment.comment}
+                secondary={`Commented by: ${comment.volunteer?.name}`}
+              />
+            </ListItem>
           ))}
-        </ul>
+        </List>
       )}
-    </>
+    </div>
   )
 }
 

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useCommenting } from './commentingContext'
 import { createComment } from '../../actions/commentingActions'
 import { API_URL } from '../../config'
-import { resetForm } from '../../actions/formActions'
+import { TextField, Button, MenuItem, FormControl, InputLabel, Select } from '@mui/material'
+import './commentingForm.scss'
 
 const CommentingForm = ({ petId }) => {
   const { dispatch } = useCommenting()
@@ -32,31 +33,38 @@ const CommentingForm = ({ petId }) => {
   }
 
   return (
-    <form onSubmit={handleCommentSubmit}>
-      <div>
-        <label htmlFor="comment">Comment:</label>
-        <textarea
+    <form onSubmit={handleCommentSubmit} className="commenting-form">
+      <FormControl fullWidth margin="normal">
+        <TextField
           id="comment"
+          label="Comment"
+          variant="outlined"
+          multiline
+          rows={4}
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
-        ></textarea>
-      </div>
-      <div>
-        <label htmlFor="volunteerId">Volunteer:</label>
-        <select
+        />
+      </FormControl>
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="volunteer-label">Volunteer</InputLabel>
+        <Select
+          labelId="volunteer-label"
           id="volunteerId"
           value={volunteerId}
           onChange={(e) => setVolunteerId(e.target.value)}
+          label="Volunteer"
         >
-          <option value="" disabled>Select a volunteer</option>
+          <MenuItem value="" disabled>Select a volunteer</MenuItem>
           {volunteers.map((volunteer) => (
-            <option key={volunteer._id} value={volunteer._id}>
+            <MenuItem key={volunteer._id} value={volunteer._id}>
               {volunteer.name}
-            </option>
+            </MenuItem>
           ))}
-        </select>
-      </div>
-      <button type="submit">Add Comment</button>
+        </Select>
+      </FormControl>
+      <Button type="submit" variant="contained" color="primary" fullWidth>
+        Add Comment
+      </Button>
     </form>
   )
 }

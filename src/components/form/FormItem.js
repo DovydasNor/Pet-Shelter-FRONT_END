@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from './formContext'
 import { createPet, updatePet, setField, resetForm } from '../../actions/formActions'
 import { getSinglePet } from '../../actions/singlePetActions'
 import { useNavigate, useParams } from 'react-router-dom'
+import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material'
+import './FormItem.scss'
 
 const FormItem = () => {
   const { state, dispatch } = useForm()
@@ -31,12 +33,17 @@ const FormItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const pet = { type: state.type, name: state.name, breed: state.breed, description: state.description }
-    console.log('Submitting form with pet data:', pet)
+    const formData = new FormData()
+    formData.append('type', state.type)
+    formData.append('name', state.name)
+    formData.append('breed', state.breed)
+    formData.append('description', state.description)
+
+    console.log('Submitting form with pet data:', formData)
     if (id) {
-      await updatePet(dispatch, { ...pet, id })
+      await updatePet(dispatch, { ...formData, id })
     } else {
-      await createPet(dispatch, pet)
+      await createPet(dispatch, formData)
     }
     resetForm(dispatch)
     navigate('/pets')
@@ -56,53 +63,64 @@ const FormItem = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-control">
-        <label htmlFor="type">Type:</label>
-        <select
-          name="type"
-          id="type"
-          value={state.type}
-          onChange={handleChange}
-        >
-          <option value="" disabled>Select a type</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-        </select>
-      </div>
-      <div className="form-control">
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={state.name}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-control">
-        <label htmlFor="breed">Breed:</label>
-        <input
-          type="text"
-          id="breed"
-          name="breed"
-          value={state.breed}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-control">
-        <label htmlFor="description">Description:</label>
-        <textarea
-          name="description"
-          id="description"
-          cols="30"
-          rows="10"
-          value={state.description}
-          onChange={handleChange}
-        ></textarea>
-      </div>
-      <button type="submit">{id ? 'Update' : 'Create'}</button>
-    </form>
+    <div className="form-container">
+      <h1>{id ? 'Edit Pet' : 'Add Pet'}</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-control">
+          <FormControl fullWidth>
+            <InputLabel id="type-label">Type</InputLabel>
+            <Select
+              labelId="type-label"
+              id="type"
+              name="type"
+              value={state.type}
+              onChange={handleChange}
+              label="Type"
+            >
+              <MenuItem value="" disabled>Select a type</MenuItem>
+              <MenuItem value="dog">Dog</MenuItem>
+              <MenuItem value="cat">Cat</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <div className="form-control">
+          <TextField
+            id="name"
+            name="name"
+            label="Name"
+            variant="outlined"
+            value={state.name}
+            onChange={handleChange}
+            fullWidth
+          />
+        </div>
+        <div className="form-control">
+          <TextField
+            id="breed"
+            name="breed"
+            label="Breed"
+            variant="outlined"
+            value={state.breed}
+            onChange={handleChange}
+            fullWidth
+          />
+        </div>
+        <div className="form-control">
+          <TextField
+            id="description"
+            name="description"
+            label="Description"
+            variant="outlined"
+            multiline
+            rows={4}
+            value={state.description}
+            onChange={handleChange}
+            fullWidth
+          />
+        </div>
+        <button type="submit">{id ? 'Update' : 'Create'}</button>
+      </form>
+    </div>
   )
 }
 

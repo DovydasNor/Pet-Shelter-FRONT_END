@@ -5,8 +5,10 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import CommentingItem from '../commenting/commentingItem'
 import CommentingForm from '../commenting/commentingForm'
 import { CommentingProvider } from '../commenting/commentingContext'
+import { Typography, Button, Card, CardContent, Container } from '@mui/material'
+import './SinglePetItem.scss'
 
-const SinglePetPage = () => {
+const SinglePetItem = () => {
   const { state, dispatch } = useSinglePet()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -33,19 +35,46 @@ const SinglePetPage = () => {
   }
 
   return (
-    <div>
-      <h1>{state.pet.name}</h1>
-      <p>Type: {state.pet.type}</p>
-      <p>Breed: {state.pet.breed}</p>
-      <p>Description: {state.pet.description}</p>
-      <Link to={`/pets/${id}/edit`}>Edit</Link> <button onClick={deleteButtonHandler}>Delete</button>
-
-      <CommentingProvider>
-        <CommentingItem petId={id} />
-        <CommentingForm petId={id} />
-      </CommentingProvider>
-    </div>
+    <Container className="single-pet-container" maxWidth="sm">
+      <Card className="single-pet-card">
+        <CardContent>
+          <Typography variant="h4" component="h1" gutterBottom>
+            {state.pet.name}
+          </Typography>
+          <Typography variant="body1" component="p">
+            Type: {state.pet.type}
+          </Typography>
+          <Typography variant="body1" component="p">
+            Breed: {state.pet.breed}
+          </Typography>
+          <Typography variant="body1" component="p">
+            Description: {state.pet.description}
+          </Typography>
+          <div className="pet-actions">
+            <Link to={`/pets/${id}/edit`}>
+              <Button variant="contained" color="primary">
+                Edit
+              </Button>
+            </Link>
+            <Button variant="contained" color="secondary" onClick={deleteButtonHandler}>
+              Delete
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+      <Card className="comment-section-card">
+        <CardContent>
+          <Typography variant="h5" component="h2" gutterBottom>
+            Comments
+          </Typography>
+          <CommentingProvider>
+            <CommentingItem petId={id} />
+            <CommentingForm petId={id} />
+          </CommentingProvider>
+        </CardContent>
+      </Card>
+    </Container>
   )
 }
 
-export default SinglePetPage
+export default SinglePetItem

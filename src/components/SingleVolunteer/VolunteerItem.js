@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useSingleVolunteer } from './SingleVolunteerContext'
 import { deleteVolunteer, getSingleVolunteer } from '../../actions/singleVolunteerActions'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Card, CardContent, Typography, Button } from '@mui/material'
+import './VolunteerItem.scss'
 
 const VolunteerItem = () => {
   const { state, dispatch } = useSingleVolunteer()
@@ -14,7 +16,7 @@ const VolunteerItem = () => {
 
   const deleteButtonHandler = async () => {
     await deleteVolunteer(dispatch, id)
-    navigate('/volunteers')
+    navigate(`/volunteers`)
   }
 
   if (state.loading) {
@@ -30,11 +32,29 @@ const VolunteerItem = () => {
   }
 
   return (
-    <div>
-      <h1>{state.volunteer.name}</h1>
-      <p>Email: {state.volunteer.email}</p>
-      <Link to={`/volunteer/${id}/edit`}>Edit</Link> <button onClick={deleteButtonHandler}>Delete</button>
-    </div>
+    <Card className="volunteer-card">
+      <CardContent>
+        <Typography variant="h4" component="h1">
+          {state.volunteer.name}
+        </Typography>
+        <Typography variant="body1" component="p">
+          Email: {state.volunteer.email}
+        </Typography>
+        <Typography variant="body1" component="p">
+          Description: {state.volunteer.description}
+        </Typography>
+        <div className="volunteer-actions">
+          <Link to={`/volunteer/${id}/edit`}>
+            <Button variant="contained" color="primary">
+              Edit
+            </Button>
+          </Link>
+          <Button variant="contained" color="secondary" onClick={deleteButtonHandler}>
+            Delete
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 

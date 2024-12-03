@@ -2,12 +2,20 @@ import React, { useEffect } from 'react'
 import { useVolunteersList } from './VolunteersListContext'
 import { getVolunteers } from '../../actions/volunteersListActions'
 import { Link } from 'react-router-dom'
+import { Card, CardContent, Typography } from '@mui/material'
+import './VolunteersListItem.scss'
 
 const VolunteerItem = ({ volunteer }) => {
   return (
-    <li>
-      <Link to={`/volunteers/${volunteer._id}`}>{volunteer.name}</Link>
-    </li>
+    <Card className="volunteer-card">
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          <Link to={`/volunteers/${volunteer._id}`} className="volunteer-link">
+            {volunteer.name}
+          </Link>
+        </Typography>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -27,13 +35,13 @@ const VolunteersListItem = () => {
   }
 
   return (
-    <div>
+    <div className="volunteers-list-page">
       <h1>Volunteers List</h1>
-      <ul>
+      <div className="volunteers-list">
         {state.volunteers.map((volunteer) => (
           <VolunteerItem key={volunteer._id} volunteer={volunteer} />
         ))}
-      </ul>
+      </div>
     </div>
   )
 }

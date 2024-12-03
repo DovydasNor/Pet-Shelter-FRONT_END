@@ -1,18 +1,20 @@
 import { Routes, Route } from 'react-router-dom'
 import PageHeader from './components/header/PageHeader'
-import HomePage from './pages/HomePage'
-import FormPage from './pages/FormPage'
-import PetsListPage from './pages/PetsListPage'
-import SinglePetPage from './pages/SinglePetPage'
-import VolunteersPage from './pages/VolunteersPage'
-import VolunteerPage from './pages/VolunteerPage'
-import VolunteerForm from './pages/VolunteerForm'
+import HomePage from './pages/homepage/HomePage'
+import FormPage from './pages/formPage/FormPage'
+import PetsListPage from './pages/PetsListPage/PetsListPage'
+import SinglePetPage from './pages/SinglePetPage/SinglePetPage'
+import VolunteersPage from './pages/VolunteersPage/VolunteersPage'
+import VolunteerPage from './pages/VolunteerPage/VolunteerPage'
+import VolunteerForm from './pages/VolunteerForm/VolunteerForm'
 import { FormProvider } from './components/form/formContext'
 import { PetsListProvider } from './components/PetsList/petsListContext'
 import { SinglePetProvider } from './components/SinglePet/singlePetContext'
 import { VolunteerFormProvider } from './components/VolunteerForm/VolunteerFormContext'
 import { SingleVolunteerProvider } from './components/SingleVolunteer/SingleVolunteerContext'
 import { VolunteersListProvider } from './components/VolunteersList/VolunteersListContext'
+import DonationsPage from './pages/donationsPage/DonationsPage'
+import Footer from './components/footer/Footer'
 
 function App() {
   return (
@@ -28,7 +30,9 @@ function App() {
         <Route path="/volunteers/:id" element={<SingleVolunteerProvider><VolunteerPage /></SingleVolunteerProvider>} />
         <Route path="/volunteer/form" element={<VolunteerFormProvider><VolunteerForm /></VolunteerFormProvider>} />
         <Route path="/volunteer/:id/edit" element={<VolunteerFormProvider><VolunteerForm /></VolunteerFormProvider>} />
+        <Route path="/donate" element={<DonationsPage />} />
       </Routes>
+      <Footer />
     </>
   )
 }
