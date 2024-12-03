@@ -1,6 +1,5 @@
 import React from 'react'
-import { Container, Typography, Button, Grid, Card, CardContent } from '@mui/material'
-import { Link } from 'react-router-dom'
+import {  Typography, Grid, Card, CardContent } from '@mui/material'
 import './HomePage.scss'
 
 const HomePage = () => {

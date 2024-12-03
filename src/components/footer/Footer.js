@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Grid, Typography, Link, IconButton } from '@mui/material'
+import { Container, Grid, Typography, IconButton } from '@mui/material'
 import { Facebook, Twitter, Instagram } from '@mui/icons-material'
 import './Footer.scss'
 

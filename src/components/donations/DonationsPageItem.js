@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDonations } from './donationsContext'
+import { fetchDonations, createDonation } from '../../actions/donationsActions'
 import { Container, Typography, TextField, Button, Grid, Card, CardContent } from '@mui/material'
 import './DonationsPageItem.scss'
 
 const DonationsPageItem = () => {
+  const { state, dispatch } = useDonations()
   const [donationAmount, setDonationAmount] = useState('')
   const [donorName, setDonorName] = useState('')
   const [message, setMessage] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-   
-    console.log('Donation submitted:', { donationAmount, donorName, message })
+  useEffect(() => {
+    fetchDonations(dispatch)
+  }, [dispatch])
 
-    alert('Thank you for your donation!')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const donation = { amount: donationAmount, name: donorName, message }
+    await createDonation(dispatch, donation)
     setDonationAmount('')
     setDonorName('')
     setMessage('')
@@ -71,42 +76,23 @@ const DonationsPageItem = () => {
           Recent Donations
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" component="h3">
-                  John Doe
-                </Typography>
-                <Typography variant="body2" component="p">
-                  $50 - "Keep up the great work!"
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" component="h3">
-                  Jane Smith
-                </Typography>
-                <Typography variant="body2" component="p">
-                  $100 - "Happy to support such a wonderful cause."
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" component="h3">
-                  Bob Johnson
-                </Typography>
-                <Typography variant="body2" component="p">
-                  $25 - "Every little bit helps!"
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          {Array.isArray(state.donations) && state.donations.map((donation) => (
+            <Grid item xs={12} sm={6} md={4} key={donation._id}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5" component="h3">
+                    {donation.name}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Amount - ${donation.amount}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    "{donation.message}"
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       </section>
     </Container>

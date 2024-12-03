@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useCommenting } from './commentingContext'
 import { getComments, deleteComment } from '../../actions/commentingActions'
-import { List, ListItem, ListItemText, Typography, CircularProgress, IconButton } from '@mui/material'
+import { List, ListItem, ListItemText, CircularProgress, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import './commentingItem.scss'
 
