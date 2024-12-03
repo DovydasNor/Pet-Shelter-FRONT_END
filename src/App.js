@@ -15,6 +15,7 @@ import { SingleVolunteerProvider } from './components/SingleVolunteer/SingleVolu
 import { VolunteersListProvider } from './components/VolunteersList/VolunteersListContext'
 import DonationsPage from './pages/donationsPage/DonationsPage'
 import Footer from './components/footer/Footer'
+import { DonationsProvider } from './components/donations/donationsContext'
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         <Route path="/volunteers/:id" element={<SingleVolunteerProvider><VolunteerPage /></SingleVolunteerProvider>} />
         <Route path="/volunteer/form" element={<VolunteerFormProvider><VolunteerForm /></VolunteerFormProvider>} />
         <Route path="/volunteer/:id/edit" element={<VolunteerFormProvider><VolunteerForm /></VolunteerFormProvider>} />
-        <Route path="/donate" element={<DonationsPage />} />
+        <Route path="/donate" element={<DonationsProvider><DonationsPage /></DonationsProvider>} />
       </Routes>
       <Footer />
     </>
