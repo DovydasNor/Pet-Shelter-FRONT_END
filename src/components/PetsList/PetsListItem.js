@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { usePetsList } from './petsListContext'
 import { getAllPets } from '../../actions/petsListActions'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
+import './PetsListItem.scss'
+import { FormControl, FormHelperText, MenuItem, Select } from '@mui/material'
 
 const PetsListPage = () => {
   const { state, dispatch } = usePetsList()
@@ -16,8 +18,8 @@ const PetsListPage = () => {
   }
 
   const filteredPets = state.pets
-  .filter(pet => filterType === '' || pet.type === filterType)
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .filter(pet => filterType === '' || pet.type === filterType)
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
 
   if (state.loading) {
     return <div>Loading...</div>
@@ -28,29 +30,38 @@ const PetsListPage = () => {
   }
 
   return (
-    <>
-    <h1>Our pets</h1>
+    <div className="pets-list-page">
+      <h1>Our Pets</h1>
 
-    <div>
-        <label htmlFor="filter">Filter by type:</label>
-        <select id="filter" value={filterType} onChange={handleFilterChange}>
-          <option value="">All</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-        </select>
+      <div className="filter-container">
+      <FormControl>
+      <FormHelperText>Filter by type</FormHelperText>
+          <Select
+            labelId="filter-label"
+            id="filter"
+            value={filterType}
+            onChange={handleFilterChange}
+            displayEmpty
+            inputProps={{ 'aria-label': 'Without label' }}
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="dog">Dog</MenuItem>
+            <MenuItem value="cat">Cat</MenuItem>
+          </Select>
+        </FormControl>
       </div>
-      
-      <div>
+
+      <div className="pets-list">
         {filteredPets.map(pet => (
           <Link to={`/pets/${pet._id}`} key={pet._id}>
-            <div>
+            <div className="pet-item">
               <h2>{pet.name}</h2>
               <p>{pet.breed}</p>
             </div>
           </Link>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
