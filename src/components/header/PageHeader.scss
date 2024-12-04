@@ -1,12 +1,10 @@
 .page-header {
-  position: relative;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
 
   nav {
     ul {
@@ -20,7 +18,6 @@
 
         a {
           color: #fff;
-          font-weight: bolder;
           text-decoration: none;
           padding: 10px 15px;
           border-radius: 5px;
@@ -36,6 +33,19 @@
             color: #fff;
           }
         }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+
+    nav ul {
+      flex-direction: column;
+
+      li {
+        margin: 5px 0;
       }
     }
   }

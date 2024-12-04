@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 
   .hero-section {
     position: relative;
@@ -45,8 +46,6 @@
 
   .about-section,
   .services-section {
-    margin-left: 50px;
-    margin-right: 50px;
     margin-bottom: 40px;
     text-align: center;
 
@@ -72,6 +71,82 @@
 
       p {
         flex-grow: 1;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+
+    .hero-section {
+      height: auto;
+
+      .hero-overlay {
+        padding: 10px;
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+
+        button {
+          font-size: 1rem;
+          padding: 5px 10px;
+        }
+      }
+    }
+
+    .about-section,
+    .services-section {
+      margin-bottom: 20px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 5px;
+
+    .hero-section {
+      height: auto;
+
+      .hero-overlay {
+        padding: 5px;
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        p {
+          font-size: 0.8rem;
+        }
+
+        button {
+          font-size: 0.8rem;
+          padding: 5px;
+        }
+      }
+    }
+
+    .about-section,
+    .services-section {
+      margin-bottom: 10px;
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      p {
+        font-size: 0.8rem;
       }
     }
   }
