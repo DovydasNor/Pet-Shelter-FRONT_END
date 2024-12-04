@@ -16,10 +16,11 @@ import { VolunteersListProvider } from './components/VolunteersList/VolunteersLi
 import DonationsPage from './pages/donationsPage/DonationsPage'
 import Footer from './components/footer/Footer'
 import { DonationsProvider } from './components/donations/donationsContext'
+import './App.scss'
 
 function App() {
   return (
-    <>
+    <div className="app-container">
       <PageHeader />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -34,7 +35,7 @@ function App() {
         <Route path="/donate" element={<DonationsProvider><DonationsPage /></DonationsProvider>} />
       </Routes>
       <Footer />
-    </>
+    </div>
   )
 }
 
