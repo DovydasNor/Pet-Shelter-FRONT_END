@@ -12,9 +12,15 @@
 
   .social-link {
     color: #fff;
+    transition: transform 0.3s ease, background 0.3s ease;
 
     &:hover {
-      color: #007bff;
+      background: linear-gradient(90deg, #ff7e5f, #feb47b);
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.9);
     }
   }
 
